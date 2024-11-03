@@ -1,29 +1,43 @@
 import { Mail, Home } from "react-feather";
 
-export default [
-  {
-    id: "home",
-    title: "View Train",
-    icon: <Home size={20} />,
-    navLink: "/home",
-  },
-  {
-    id: "secondPage",
-    title: "Bookings",
-    icon: <Mail size={20} />,
-    navLink: "/second-page",
-  },
-  {
-    id: "booktrain",
-    title: "BookTrain",
-    icon: <Mail size={20} />,
-    navLink: "/booktrain",
-  },  
-  {
-    id: "mybooking",
-    title: "mybooking",
-    icon: <Mail size={20} />,
-    navLink: "/mybooking",
-  },
-    
+const showHome = true; 
+const showBookings = true; 
+const showBookTrain = true; 
+const showMyBooking = true; 
+
+const navItems = [
+  ...(showHome
+    ? [{
+        id: "home",
+        title: "View Train",
+        icon: <Home size={20} />,
+        navLink: "/home",
+      }]
+    : []),
+  ...(showBookings
+    ? [{
+        id: "secondPage",
+        title: "Bookings",
+        icon: <Mail size={20} />,
+        navLink: "/second-page",
+      }]
+    : []),
+  ...(showBookTrain
+    ? [{
+        id: "booktrain",
+        title: "BookTrain",
+        icon: <Mail size={20} />,
+        navLink: "/booktrain",
+      }]
+    : []),
+  ...(showMyBooking
+    ? [{
+        id: "mybooking",
+        title: "Mybooking",
+        icon: <Mail size={20} />,
+        navLink: "/mybooking",
+      }]
+    : []),
 ];
+
+export default navItems;

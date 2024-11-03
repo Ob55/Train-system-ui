@@ -25,8 +25,8 @@ import {
 } from "reactstrap";
 
 // ** Illustrations Imports
-import illustrationsLight from "@src/assets/images/pages/login-v2.svg";
-import illustrationsDark from "@src/assets/images/pages/login-v2-dark.svg";
+import illustrationsLight from "@src/assets/images/pages/train004.png";
+// import illustrationsDark from "@src/assets/images/pages/login-v2-dark.svg";
 
 // ** Styles
 import "@styles/react/pages/page-authentication.scss";
@@ -68,7 +68,7 @@ const Login = () => {
       <Row className="auth-inner m-0">
         <Link className="brand-logo" to="/" onClick={(e) => e.preventDefault()}>
           {/* Brand Logo */}
-          <h2 className="brand-text text-primary ms-1">Alvin</h2>
+          <h2 className="brand-text text-primary ms-1">Mr.Alvin</h2>
         </Link>
         <Col className="d-none d-lg-flex align-items-center p-5" lg="8" sm="12">
           <div className="w-100 d-lg-flex align-items-center justify-content-center px-5">
@@ -82,7 +82,7 @@ const Login = () => {
         >
           <Col className="px-xl-2 mx-auto" sm="8" md="6" lg="12">
             <CardTitle tag="h2" className="fw-bold mb-1">
-              Welcome to Alvin's Transit System 👋
+              Welcome to Mr.Alvin Transit System 👋
             </CardTitle>
             <CardText className="mb-2">
               Please sign-in to your account and start the adventure
@@ -98,7 +98,7 @@ const Login = () => {
                 <Input
                   type="email"
                   id="login-email"
-                  placeholder="john@example.com"
+                  placeholder="Mr.Alvin@example.com"
                   autoFocus
                   value={email} // Set the value from state
                   onChange={(e) => setEmail(e.target.value)} // Update state on change
@@ -125,23 +125,32 @@ const Login = () => {
               </Button>
             </Form>
 
+            <div className="text-center mt-3">
+            <p>Don't have an account?</p>
+              <Link to="/register" className="text-primary">
+                Register here
+              </Link>
+            </div>
             <div className="divider my-2">
               <div className="divider-text">or</div>
             </div>
             <div className="auth-footer-btn d-flex justify-content-center">
-              <Button color="facebook">
+              <Button  href="https://www.facebook.com/" color="facebook">
                 <Facebook size={14} />
               </Button>
-              <Button color="twitter">
+              <Button href="http://www.twitter.com/"color="twitter">
                 <Twitter size={14} />
               </Button>
-              <Button color="google">
+              <Button href="http://www.gmail.com/" color="google">
                 <Mail size={14} />
               </Button>
-              <Button className="me-0" color="github">
+              <Button href="http://www.github.com/" className="me-0" color="github">
                 <GitHub size={14} />
               </Button>
             </div>
+            {/* Add a link to the registration page */}
+         
+
           </Col>
         </Col>
       </Row>

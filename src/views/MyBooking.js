@@ -37,17 +37,19 @@ const MyBooking = () => {
               <th>Name</th>
               <th>Phone Number</th>
               <th>Email</th>
+              <th>Send Goods</th>
               <th>Train Booked</th>
               <th>Destination</th>
-              <th>Departure Time</th> {/* New header for departure time */}
-              <th>Arrival Time</th> {/* New header for arrival time */}
+              <th>Departure Time</th>
+              <th>Arrival Time</th>
               <th>Payment Status</th>
+              <th>Track package</th> {/* Updated header for goods status */}
             </tr>
           </thead>
           <tbody>
             {customers.length === 0 ? (
               <tr>
-                <td colSpan="8" className="text-center">
+                <td colSpan="10" className="text-center"> {/* Updated colspan to 10 */}
                   No customers booked yet.
                 </td>
               </tr>
@@ -57,11 +59,13 @@ const MyBooking = () => {
                   <td>{customer.name}</td>
                   <td>{customer.phone}</td>
                   <td>{customer.email}</td>
+                  <td>{customer.goods || "N/A"}</td> {/* Display "N/A" if no goods are added */}
                   <td>{customer.trainBooked}</td>
                   <td>{customer.destination}</td>
-                  <td>{customer.departureTime}</td> {/* Display departure time */}
-                  <td>{customer.arrivalTime}</td> {/* Display arrival time */}
+                  <td>{customer.departureTime}</td>
+                  <td>{customer.arrivalTime}</td>
                   <td>{customer.paymentStatus}</td>
+                  <td>{customer.goodsStatus || "N/A"}</td> {/* Display "N/A" if no goods status */}
                 </tr>
               ))
             )}

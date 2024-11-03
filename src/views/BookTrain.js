@@ -13,6 +13,7 @@ import {
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import emailjs from 'emailjs-com';
 
 const BookTrain = () => {
   const [formData, setFormData] = useState({
@@ -24,6 +25,8 @@ const BookTrain = () => {
     departureTime: "",
     arrivalTime: "",
     paymentStatus: "Pending",
+    goods: "", 
+
   });
   const [trains, setTrains] = useState([]);
   const [bookings, setBookings] = useState([]);
@@ -90,10 +93,28 @@ const BookTrain = () => {
     e.preventDefault();
 
     try {
+      // Post the booking data
       const response = await axios.post("http://localhost:5000/bookings", formData);
       setBookings((prevBookings) => [...prevBookings, response.data]);
       toast.success("Train booked successfully!");
 
+      // Prepare the template parameters for EmailJS
+      const templateParams = {
+        name: formData.name,
+        email: formData.email,
+        train: formData.trainBooked,
+        destination: formData.destination,
+        departure: formData.departureTime,
+        arrival: formData.arrivalTime,
+        goods: formData.goods || "N/A", // Use "N/A" if goods is empty
+
+      };
+
+      // Send receipt email using EmailJS
+      await emailjs.send("service_9somcoo", "template_jqnx3wb", templateParams, "YOUR_USER_ID"); // Replace YOUR_USER_ID
+      toast.success("Receipt sent to your email!");
+
+      // Reset form after successful submission
       setFormData({
         name: "",
         phone: "",
@@ -103,12 +124,27 @@ const BookTrain = () => {
         departureTime: "",
         arrivalTime: "",
         paymentStatus: "Pending",
+        goods: "",
+
       });
       setSelectedTrain(null);
     } catch (error) {
-      console.error("Error booking train:", error);
-      toast.error("Failed to book train. Please try again.");
+      console.error("Error booking train or sending email:", error);
+      toast.error("Failed to book train or send receipt. Please try again.");
     }
+  };
+
+  const getReceipt = () => {
+    const receiptDetails = `
+      Receipt:
+      - Name: ${formData.name}
+      - Train: ${formData.trainBooked}
+      - Destination: ${formData.destination}
+      - Departure: ${formData.departureTime}
+      - Arrival: ${formData.arrivalTime}
+      - Payment Status: ${formData.paymentStatus}
+    `;
+    alert(receiptDetails);
   };
 
   // Filter trains based on search query
@@ -161,12 +197,7 @@ const BookTrain = () => {
               <p><strong>Departure Time:</strong> {selectedTrain.departureTime}</p>
               <p><strong>Arrival Time:</strong> {selectedTrain.arrivalTime}</p>
             </div>
-            <img 
-            src="/assets/images/pages/Train1.jpeg"
-            alt={selectedTrain.trainName}
-            className="img-fluid"
-            style={{ maxWidth: "200px", marginRight: "45rem" }} 
-          />
+
           </div>
         )}
 
@@ -193,6 +224,18 @@ const BookTrain = () => {
               required
             />
           </FormGroup>
+          <FormGroup>
+            <Label for="goods">Send Goods</Label>
+            <Input
+              type="text"
+              name="goods"
+              id="goods"
+              value={formData.goods}
+              onChange={handleChange}
+              // required
+            />
+          </FormGroup>
+
           <FormGroup>
             <Label for="email">Email</Label>
             <Input
@@ -252,9 +295,14 @@ const BookTrain = () => {
               readOnly
             />
           </FormGroup>
-          <Button type="submit" color="primary" className="mb-4">
-            Submit
-          </Button>
+          <div className="d-flex justify-content-between">
+            <Button type="submit" color="primary" className="mb-4">
+              Submit
+            </Button>
+            <Button color="secondary" onClick={getReceipt} className="mb-4">
+              Get Receipt
+            </Button>
+          </div>
         </Form>
       </CardBody>
       <ToastContainer />

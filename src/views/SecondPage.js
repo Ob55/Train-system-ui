@@ -37,17 +37,19 @@ const SecondPage = () => {
               <th>Name</th>
               <th>Phone Number</th>
               <th>Email</th>
+              <th>Send Goods</th> {/* Existing Send Goods column */}
               <th>Train Booked</th>
               <th>Destination</th>
-              <th>Departure Time</th> {/* New column for Departure Time */}
-              <th>Arrival Time</th> {/* New column for Arrival Time */}
+              <th>Departure Time</th>
+              <th>Arrival Time</th>
               <th>Payment Status</th>
+              <th>Track package</th> {/* Added Goods Status column */}
             </tr>
           </thead>
           <tbody>
             {customers.length === 0 ? (
               <tr>
-                <td colSpan="8" className="text-center">
+                <td colSpan="10" className="text-center">
                   No customers booked yet.
                 </td>
               </tr>
@@ -57,11 +59,13 @@ const SecondPage = () => {
                   <td>{customer.name}</td>
                   <td>{customer.phone}</td>
                   <td>{customer.email}</td>
+                  <td>{customer.goods || "N/A"}</td> {/* Display "N/A" if no goods are added */}
                   <td>{customer.trainBooked}</td>
                   <td>{customer.destination}</td>
-                  <td>{customer.departureTime}</td> {/* Display Departure Time */}
-                  <td>{customer.arrivalTime}</td> {/* Display Arrival Time */}
+                  <td>{customer.departureTime}</td>
+                  <td>{customer.arrivalTime}</td>
                   <td>{customer.paymentStatus}</td>
+                  <td>{customer.goodsStatus || "N/A"}</td> {/* Display "N/A" if no goods status is provided */}
                 </tr>
               ))
             )}
