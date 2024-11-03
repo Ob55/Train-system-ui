@@ -54,6 +54,7 @@ const Login = () => {
       localStorage.setItem("role", response.data.role);
       localStorage.setItem("userId", response.data.userId);
 
+      
       // Navigate to the dashboard or other protected route
       navigate("/home");
     } catch (error) {
